@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel & Booking ReAct Agent | Observability Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- TOP APP HEADER -->
+        <header class="app-header">
+            <div class="brand-group">
+                <div class="brand-icon">🌴</div>
+                <div class="brand-text">
+                    <div class="brand-title">Travel & Booking ReAct Agent</div>
+                    <div class="brand-sub">Hệ thống Trợ lý Du lịch & Đặt phòng Thông minh (MCP Protocol + Agoda Live)</div>
+                </div>
+            </div>
+            
+            <div class="header-badges">
+                <div class="status-pill" style="border-color: rgba(244, 63, 94, 0.4); color: #FDA4AF;">
+                    <span class="icon">🛡️</span>
+                    <span>Guardrails: Active</span>
+                </div>
+                <div class="status-pill active">
+                    <span class="dot"></span>
+                    <span>MCP Server: Active</span>
+                </div>
+                <div class="status-pill api">
+                    <span class="icon">⚡</span>
+                    <span>Agoda Live API</span>
+                </div>
+                <div class="status-pill model">
+                    <span class="icon">🤖</span>
+                    <span>OpenAI gpt-4o-mini</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN SPLIT SCREEN -->
+        <main class="split-screen">
+            <!-- LEFT PANEL: MAIN CHAT -->
+            <section class="panel panel-chat">
+                <div class="panel-header">
+                    <div class="panel-title-group">
+                        <span class="panel-icon">💬</span>
+                        <h2>Trò chuyện với Agent</h2>
+                    </div>
+                    
+                    <div class="chat-controls">
+                        <div id="memoryStatusBadge" class="memory-badge" title="Trạng thái Conversation Summary Buffer Memory">
+                            🧠 0/3 lượt | Tóm tắt: Chưa có
+                        </div>
+                        <button id="btnViewMemory" class="btn-icon" title="Xem chi tiết bộ nhớ">📋</button>
+                        <button id="btnClearMemory" class="btn-icon danger" title="Xóa sạch bộ nhớ">🧹</button>
+                    </div>
+                </div>
+
+                <!-- CHAT MESSAGES STREAM -->
+                <div id="chatMessages" class="chat-messages">
+                    <div class="welcome-card">
+                        <div class="welcome-icon">👋</div>
+                        <h3>Chào bạn! Tôi là Trợ lý Du lịch & Đặt phòng ReAct</h3>
+                        <p>Tôi có thể tra cứu thông tin thời tiết, danh lam thắng cảnh, tra cứu phòng trống & giá phòng theo thời gian thực từ <strong>Agoda</strong>, đồng thời ghi nhận đặt phòng cho bạn.</p>
+                        <div class="welcome-tip">
+                            💡 Hãy thử hỏi các câu hỏi bên dưới hoặc tự do trò chuyện:
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QUICK PROMPTS CAROUSEL -->
+                <div class="quick-prompts">
+                    <button class="chip" data-prompt="Hãy tra cứu thông tin du lịch và lưu trú tại Hải Phòng">🏖️ Du lịch & Khách sạn Hải Phòng</button>
+                    <button class="chip" data-prompt="Tìm khách sạn tại Hải Phòng">🏨 Tìm khách sạn Hải Phòng (Agoda)</button>
+                    <button class="chip" data-prompt="Dự báo thời tiết tại Hải Phòng ngày mai thế nào?">🌤️ Thời tiết Hải Phòng ngày mai</button>
+                    <button class="chip" data-prompt="Đặt phòng A102 tại Vinpearl Ha Long từ ngày mai 2 đêm">📝 Đặt phòng A102 Vinpearl Hạ Long</button>
+                    <button class="chip" data-prompt="Thông tin du lịch tại Thái Bình">🏛️ Du lịch Thái Bình (Edge Case)</button>
+                </div>
+
+                <!-- CHAT INPUT AREA -->
+                <div class="chat-input-wrapper">
+                    <form id="chatForm" class="chat-form">
+                        <textarea id="userInput" placeholder="Nhập câu hỏi du lịch, khách sạn hoặc yêu cầu đặt phòng..." rows="1" required></textarea>
+                        <button type="submit" id="btnSend" class="btn-send" title="Gửi câu hỏi">
+                            <span class="send-icon">➤</span>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- RIGHT PANEL: TRACE & OBSERVABILITY -->
+            <section class="panel panel-trace">
+                <div class="panel-header">
+                    <div class="panel-title-group">
+                        <span class="panel-icon">📊</span>
+                        <h2>ReAct Waterfall Trace & Observability</h2>
+                    </div>
+
+                    <div class="trace-tabs">
+                        <button id="tabLive" class="tab-btn active">⚡ Live Execution</button>
+                        <button id="tabHistory" class="tab-btn">📂 Lịch sử Trace</button>
+                    </div>
+                </div>
+
+                <!-- OBSERVABILITY METRICS STRIP -->
+                <div class="metrics-bar">
+                    <div class="metric-card">
+                        <div class="metric-label">Tổng Latency</div>
+                        <div id="metricLatency" class="metric-value">0 ms</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Số bước ReAct</div>
+                        <div id="metricSteps" class="metric-value">0 steps</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Tools Thực Thi</div>
+                        <div id="metricTools" class="metric-value">0 tools</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Observability</div>
+                        <div class="metric-value highlight">100% Traced</div>
+                    </div>
+                </div>
+
+                <!-- LIVE TRACE TIMELINE -->
+                <div id="traceTimeline" class="trace-timeline">
+                    <div class="empty-trace-state">
+                        <div class="empty-icon">🔍</div>
+                        <div class="empty-title">Chưa có Trace nào được thực thi</div>
+                        <div class="empty-desc">Gửi một câu hỏi ở bên trái để theo dõi chi tiết chuỗi suy luận ReAct Loop (Thought -> Action -> Observation -> Final Answer) theo thời gian thực tại đây.</div>
+                    </div>
+                </div>
+
+                <!-- HISTORY TRACE VIEW (TAB 2) -->
+                <div id="historyTraceView" class="history-trace-view hidden">
+                    <div class="history-header">
+                        <span>Lịch sử từ tệp: <code>docs/trace_waterfall.json</code></span>
+                        <button id="btnReloadHistory" class="btn-sm">🔄 Tải lại</button>
+                    </div>
+                    <pre id="historyContent" class="json-viewer">Đang tải...</pre>
+                </div>
+            </section>
+        </main>
+
+        <!-- MEMORY MODAL -->
+        <div id="memoryModal" class="modal hidden">
+            <div class="modal-backdrop"></div>
+            <div class="modal-card">
+                <div class="modal-header">
+                    <h3>🧠 Chi tiết Conversation Summary Buffer Memory</h3>
+                    <button id="btnCloseModal" class="btn-close">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="memory-section">
+                        <h4>📜 Tóm tắt dài hạn (> 3 lượt trước):</h4>
+                        <div id="modalSummaryText" class="memory-text-box">Chưa có tóm tắt dài hạn.</div>
+                    </div>
+                    <div class="memory-section">
+                        <h4>💬 3 Lượt trao đổi gần nhất (Nguyên văn):</h4>
+                        <div id="modalTurnsContainer" class="memory-turns-box">Chưa có lượt hội thoại nào.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

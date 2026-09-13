@@ -1,0 +1,37 @@
+[
+  {
+    "id": "TC01",
+    "type": "direct_query",
+    "question": "Chào bạn, bạn có thể giới thiệu về tác dụng của bạn được không ?",
+    "expected_behavior": "Chatbot trả lời trực tiếp từ System Prompt, không cần gọi bất kỳ Tool nào.",
+    "complexity": "Low"
+  },
+  {
+    "id": "TC02",
+    "type": "single_tool_query",
+    "question": "Hãy tra cứu dự báo thời tiết của Hải Phòng vào ngày kia được không ?",
+    "expected_behavior": "Agent nhận diện nhu cầu tra cứu, tự động phát sinh Tool Call 'weather_query' với date sẽ là timestamp + ngày mai",
+    "complexity": "Medium"
+  },
+  {
+    "id": "TC03",
+    "type": "appointment_booking",
+    "question": "Đặt phòng A102 tại khách sạn Vinpearl Ha Long bắt đầu từ ngày mai và ở lại 2 ngày",
+    "expected_behavior": "Agent tự động phát sinh Tool Call 'reserve_room' với đúng thời gian timestamp.",
+    "complexity": "Medium"
+  },
+  {
+    "id": "TC04",
+    "type": "multi_step_reasoning",
+    "question": "Hãy đặt phòng tại Hạ Long vào hai ngày sắp tới",
+    "expected_behavior": "Agent sẽ thực hiện suy luận 2 bước: Tra cứu thông tin khách sạn trong khu vực, lấy thông tin phòng trống trong thời gian này, sau đó đặt phòng.",
+    "complexity": "High"
+  },
+  {
+    "id": "TC05",
+    "type": "edge_case_handling",
+    "question": "Hãy tra cứu thông tin du lịch của Thái Bình",
+    "expected_behavior": "Agent nhận kết quả NOT_FOUND từ Tool và đưa ra phản hồi lịch sự, thông báo rằng tỉnh này đã được gộp Tỉnh hiện giờ chỉ có Hưng Yên.",
+    "complexity": "Medium"
+  }
+]

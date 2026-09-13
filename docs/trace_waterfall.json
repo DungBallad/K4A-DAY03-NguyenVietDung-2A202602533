@@ -1,29 +1,192 @@
 [
   {
     "step": 1,
-    "query": "Chào bạn, bạn có thể giới thiệu quy chế học vụ cơ bản của Đại học VinUni không?",
-    "action_type": "FINAL_ANSWER",
-    "thought": "Câu hỏi chung về quy chế học vụ, trả lời trực tiếp không cần gọi Tool.",
-    "output": "[Mock Agent Response]: Xin chào! Quy chế học vụ VinUni yêu cầu sinh viên tích lũy tối thiểu 120 tín chỉ và duy trì GPA trên 2.0 để tốt nghiệp.",
-    "latency_ms": 2845.93
-  },
-  {
-    "step": 1,
-    "query": "Hãy tra cứu thông tin học vụ của sinh viên SV2026001.",
+    "query": "Tim địa chỉ du lịch và khách sạn tại  Hạ Long",
     "action_type": "TOOL_EXECUTION",
-    "tool_name": "academic_query",
+    "tool_name": "attraction_search",
     "arguments": {
-      "student_id": "SV2026001"
+      "location": "Hạ Long"
     },
-    "observation": {},
-    "latency_ms": 799.12
+    "observation": {
+      "status": "SUCCESS",
+      "location": "Hạ Long",
+      "region": "Hạ Long",
+      "category_filter": null,
+      "total_attractions": 4,
+      "attractions": [
+        {
+          "name": "Vịnh Hạ Long",
+          "category": "Kỳ quan thiên nhiên thế giới",
+          "highlights": "Du thuyền ngắm cảnh, Hang Sửng Sốt, Đảo Ti Tốp, Chèo thuyền Kayak"
+        },
+        {
+          "name": "Bảo tàng Quảng Ninh",
+          "category": "Văn hóa & Kiến trúc",
+          "highlights": "Kiến trúc vỏ than đá đen bóng độc đáo, hiện vật lịch sử ngành than"
+        },
+        {
+          "name": "Sun World Halong Complex",
+          "category": "Giải trí",
+          "highlights": "Cáp treo Nữ Hoàng, Vòng quay Mặt Trời, Công viên Rồng nước"
+        },
+        {
+          "name": "Vịnh Bái Tử Long",
+          "category": "Biển đảo & Sinh thái",
+          "highlights": "Vẻ đẹp hoang sơ tĩnh lặng, bãi biển tự nhiên, hang động kỳ vĩ"
+        }
+      ],
+      "source": "Vietnam Tourism Authority & Curated Knowledge Base"
+    },
+    "latency_ms": 2911.28
   },
   {
     "step": 2,
-    "query": "Hãy tra cứu thông tin học vụ của sinh viên SV2026001.",
+    "query": "Tim địa chỉ du lịch và khách sạn tại  Hạ Long",
+    "action_type": "TOOL_EXECUTION",
+    "tool_name": "hotel_search",
+    "arguments": {
+      "location": "Hạ Long"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "location": "Hạ Long",
+      "check_in_date": "2026-09-13",
+      "nights": 1,
+      "total_hotels_found": 5,
+      "source": "Agoda Realtime API & Verified Partners",
+      "hotels": [
+        {
+          "hotel_id": "AG-46741090",
+          "hotel_name": "5-Star Hotel Apartment À LaCarte Ha Long",
+          "address": "Khu vực Hạ Long",
+          "rating": 4.7,
+          "hotel_url": "https://www.agoda.com/search?hotel=46741090&selectedproperty=46741090&asq=u2qcKLxwzRU5NDuxJ0kOF3T91go8JoYYMxAgy8FkBH1BN0lGAtYH25sdXoy34qb96cpGl%2FgEgZV1xgjUEnAITiQbjTaXVzWPe3ZLMGXzvXtkjECvuyDQCroWkKgVna%2BQyIsp6LH537Kd4PfWH0VnlbIJ4g11FuhiR4kLCptb0HFkPw7juGHHd7R81URhNN7fOJfK1RYI5HsirmXWOmJgl%2BCOQ%2FpCG3zS8qiMbULJHe6UZcrRZn5Dw0OG0vnz62b6yP7Eb%2FQRfKoSksp2WZ7whA%3D%3D&tick=639248968443",
+          "source": "Agoda Live Inventory API",
+          "available_rooms": [
+            {
+              "room_type": "AG-6628",
+              "name": "Sea View Studio with Balcony",
+              "price_per_night": 864108,
+              "status": "LIMITED",
+              "max_occupancy": 2
+            },
+            {
+              "room_type": "AG-7107",
+              "name": "Sea View Studio",
+              "price_per_night": 864108,
+              "status": "LIMITED",
+              "max_occupancy": 2
+            },
+            {
+              "room_type": "AG-3139",
+              "name": "Mountain View Studio",
+              "price_per_night": 864108,
+              "status": "LIMITED",
+              "max_occupancy": 2
+            },
+            {
+              "room_type": "AG-1222",
+              "name": "Mountain View Studio for 3 Adults",
+              "price_per_night": 1123442,
+              "status": "LIMITED",
+              "max_occupancy": 3
+            },
+            {
+              "room_type": "AG-7101",
+              "name": "Family room - 4 pax",
+              "price_per_night": 1728216,
+              "status": "LIMITED",
+              "max_occupancy": 4
+            }
+          ]
+        },
+        {
+          "hotel_id": "AG-18507140",
+          "hotel_name": "Khach san Hai Quan - The Marine Hotel",
+          "address": "Khu vực Hạ Long",
+          "rating": 4.7,
+          "hotel_url": "https://www.agoda.com/search?hotel=18507140&selectedproperty=18507140&asq=u2qcKLxwzRU5NDuxJ0kOF3T91go8JoYYMxAgy8FkBH1BN0lGAtYH25sdXoy34qb9pQ1HuQC2vXizgJ2Wywdqr%2FwaIYm8ylAXOGed2vVfMT9k29vjerGUb%2BWEzPbMYKwxRD2BEEOnjJeoNxqN4gCBrZmK1mBuBk4AXGDHfCNPDr90pPzPHlbkGKgx1S4b%2F%2BqDq4%2B6EZhKgQmF8oWgxojtGzBx1kwLRMFI6d6qaWr19f5EoEGrf3t9wiEqd1cfD2ln&tick=639248968443",
+          "source": "Agoda Live Inventory API",
+          "available_rooms": [
+            {
+              "room_type": "AG-STD",
+              "name": "Phòng Tiêu Chuẩn (Agoda Live)",
+              "price_per_night": 1450000,
+              "status": "AVAILABLE",
+              "max_occupancy": 2
+            }
+          ]
+        },
+        {
+          "hotel_id": "AG-6593570",
+          "hotel_name": "Halong Boutique Hotel",
+          "address": "Khu vực Hạ Long",
+          "rating": 4.7,
+          "hotel_url": "https://www.agoda.com/search?hotel=6593570&selectedproperty=6593570&asq=u2qcKLxwzRU5NDuxJ0kOF3T91go8JoYYMxAgy8FkBH1BN0lGAtYH25sdXoy34qb9R0%2FFr9Dj39HRrFQB%2F5ciBWTb2%2BN6sZRv5YTM9sxgrDFEPYEQQ6eMl6g3Go3iAIGtmYrWYG4GTgBcYMd8I08Ov3Sk%2FM8eVuQYqDHVLhv%2F6oOrj7oRmEqBCYXyhaDGiO0bQ4GX%2BvS0U%2F0SnxwUoxk0QDgtXEMrI1BYfShfXaP6sbc%3D&tick=639248968443",
+          "source": "Agoda Live Inventory API",
+          "available_rooms": [
+            {
+              "room_type": "AG-4537",
+              "name": "Studio",
+              "price_per_night": 727202,
+              "status": "LIMITED",
+              "max_occupancy": 2
+            },
+            {
+              "room_type": "AG-4963",
+              "name": "Junior Suite",
+              "price_per_night": 915924,
+              "status": "LIMITED",
+              "max_occupancy": 2
+            }
+          ]
+        },
+        {
+          "hotel_id": "HL01",
+          "hotel_name": "Vinpearl Resort & Spa Ha Long",
+          "address": "Đảo Rều, Bãi Cháy, TP. Hạ Long, Quảng Ninh",
+          "rating": 4.8,
+          "hotel_url": "https://www.agoda.com/vi-vn/vinpearl-resort-spa-ha-long/hotel/ha-long-vn.html",
+          "available_rooms": [
+            {
+              "room_type": "A102",
+              "name": "Deluxe Ocean View",
+              "price_per_night": 2200000,
+              "status": "AVAILABLE"
+            },
+            {
+              "room_type": "B201",
+              "name": "Executive Suite",
+              "price_per_night": 3500000,
+              "status": "AVAILABLE"
+            }
+          ]
+        },
+        {
+          "hotel_id": "HL02",
+          "hotel_name": "Muong Thanh Luxury Ha Long Centre",
+          "address": "Bãi Cháy, TP. Hạ Long, Quảng Ninh",
+          "rating": 4.5,
+          "hotel_url": "https://www.agoda.com/vi-vn/muong-thanh-luxury-ha-long-centre-hotel/hotel/ha-long-vn.html",
+          "available_rooms": [
+            {
+              "room_type": "C301",
+              "name": "Superior Double",
+              "price_per_night": 1400000,
+              "status": "AVAILABLE"
+            }
+          ]
+        }
+      ]
+    },
+    "latency_ms": 2174.11
+  },
+  {
+    "step": 3,
+    "query": "Tim địa chỉ du lịch và khách sạn tại  Hạ Long",
     "action_type": "FINAL_ANSWER",
-    "thought": "Tổng hợp kết quả từ MCP Server thành công.",
-    "output": "Chưa thể trả lời chi tiết do chưa nhận được dữ liệu từ MCP Server (hãy hoàn thành TODO 2.1).",
-    "latency_ms": 10.0
+    "thought": "OpenAI phản hồi trực tiếp bằng văn bản.",
+    "output": "### Điểm Du Lịch Nổi Bật tại Hạ Long\n1. **Vịnh Hạ Long**\n   - **Loại hình:** Kỳ quan thiên nhiên thế giới\n   - **Nổi bật:** Du thuyền ngắm cảnh, Hang Sửng Sốt, Đảo Ti Tốp, Chèo thuyền Kayak.\n\n2. **Bảo tàng Quảng Ninh**\n   - **Loại hình:** Văn hóa & Kiến trúc\n   - **Nổi bật:** Kiến trúc vỏ than đá đen bóng độc đáo, hiện vật lịch sử ngành than.\n\n3. **Sun World Halong Complex**\n   - **Loại hình:** Giải trí\n   - **Nổi bật:** Cáp treo Nữ Hoàng, Vòng quay Mặt Trời, Công viên Rồng nước.\n\n4. **Vịnh Bái Tử Long**\n   - **Loại hình:** Biển đảo & Sinh thái\n   - **Nổi bật:** Vẻ đẹp hoang sơ tĩnh lặng, bãi biển tự nhiên, hang động kỳ vĩ.\n\n### Khách Sạn Tại Hạ Long\n1. **[5-Star Hotel Apartment À LaCarte Ha Long](https://www.agoda.com/search?hotel=46741090&selectedproperty=46741090&asq=u2qcKLxwzRU5NDuxJ0kOF3T91go8JoYYMxAgy8FkBH1BN0lGAtYH25sdXoy34qb96cpGl%2FgEgZV1xgjUEnAITiQbjTaXVzWPe3ZLMGXzvXtkjECvuyDQCroWkKgVna%2BQyIsp6LH537Kd4PfWH0VnlbIJ4g11FuhiR4kLCptb0HFkPw7juGHHd7R81URhNN7fOJfK1RYI5HsirmXWOmJgl%2BCOQ%2FpCG3zS8qiMbULJHe6UZcrRZn5Dw0OG0vnz62b6yP7Eb%2FQRfKoSksp2WZ7whA%3D%3D&tick=639248968443)**\n   - **Địa chỉ:** Khu vực Hạ Long\n   - **Đánh giá:** 4.7\n   - **Giá phòng:** Từ 864.108 VND cho các hạng phòng Sea View và Mountain View.\n\n2. **[Khách sạn Hải Quan - The Marine Hotel](https://www.agoda.com/search?hotel=18507140&selectedproperty=18507140&asq=u2qcKLxwzRU5NDuxJ0kOF3T91go8JoYYMxAgy8FkBH1BN0lGAtYH25sdXoy34qb9pQ1HuQC2vXizgJ2Wywdqr%2FwaIYm8ylAXOGed2vVfMT9k29vjerGUb%2BWEzPbMYKwxRD2BEEOnjJeoNxqN4gCBrZmK1mBuBk4AXGDHfCNPDr90pPzPHlbkGKgx1S4b%2F%2BqDq4%2B6EZhKgQmF8oWgxojtGzBx1kwLRMFI6d6qaWr19f5EoEGrf3t9wiEqd1cfD2ln&tick=639248968443)**\n   - **Địa chỉ:** Khu vực Hạ Long\n   - **Đánh giá:** 4.7\n   - **Giá phòng:** 1.450.000 VND cho phòng tiêu chuẩn.\n\n3. **[Halong Boutique Hotel](https://www.agoda.com/search?hotel=6593570&selectedproperty=6593570&asq=u2qcKLxwzRU5NDuxJ0kOF3T91go8JoYYMxAgy8FkBH1BN0lGAtYH25sdXoy34qb9R0%2FFr9Dj39HRrFQB%2F5ciBWTb2%2BN6sZRv5YTM9sxgrDFEPYEQQ6eMl6g3Go3iAIGtmYrWYG4GTgBcYMd8I08Ov3Sk%2FM8eVuQYqDHVLhv%2F6oOrj7oRmEqBCYXyhaDGiO0bQ4GX%2BvS0U%2F0SnxwUoxk0QDgtXEMrI1BYfShfXaP6sbc%3D&tick=639248968443)**\n   - **Địa chỉ:** Khu vực Hạ Long\n   - **Đánh giá:** 4.7\n   - **Giá phòng:** Từ 727.202 VND cho các hạng phòng Studio và Junior Suite.\n\n4. **[Vinpearl Resort & Spa Ha Long](https://www.agoda.com/vi-vn/vinpearl-resort-spa-ha-long/hotel/ha-long-vn.html)**\n   - **Địa chỉ:** Đảo Rều, Bãi Cháy, TP. Hạ Long, Quảng Ninh\n   - **Đánh giá:** 4.8\n   - **Giá phòng:** Từ 2.200.000 VND cho phòng Deluxe Ocean View.\n\n5. **[Muong Thanh Luxury Ha Long Centre](https://www.agoda.com/vi-vn/muong-thanh-luxury-ha-long-centre-hotel/hotel/ha-long-vn.html)**\n   - **Địa chỉ:** Bãi Cháy, TP. Hạ Long, Quảng Ninh\n   - **Đánh giá:** 4.5\n   - **Giá phòng:** Từ 1.400.000 VND cho phòng Superior Double.\n\nNếu bạn cần thêm thông tin hoặc hỗ trợ đặt phòng, hãy cho tôi biết!",
+    "latency_ms": 11793.12
   }
 ]
